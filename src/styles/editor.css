@@ -1,0 +1,64 @@
+/* src/styles/editor.css */
+
+/* Ensure you import this CSS file in your Editor component */
+.editor-container {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .react-mde {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .react-mde .mde-header {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .react-mde .mde-tabs {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .react-mde .mde-tabs button {
+    margin-left: 8px;
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .react-mde .mde-tabs button.mde-tab {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-bottom: none;
+  }
+  
+  .react-mde .mde-tabs button.mde-tab.mde-tab-selected {
+    background-color: white;
+    border-bottom: 1px solid white;
+  }
+  
+  .react-mde .mde-content {
+    height: calc(100% - 40px);
+    display: flex;
+  }
+  
+  .react-mde .mde-text {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    resize: none;
+  }
+  
+  .react-mde .mde-preview {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    overflow-y: auto;
+  }
+  

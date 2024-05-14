@@ -3,7 +3,7 @@
 
 export default function Sidebar(props) {
     // eslint-disable-next-line react/prop-types
-    const noteElements = props.notes.map((note, index) => (
+    const noteElements = props.notes.map((note) => (
         <div key={note.id}>
             <div
                 
@@ -18,7 +18,7 @@ export default function Sidebar(props) {
                 <button 
                     className="delete-btn"
                     // eslint-disable-next-line react/prop-types
-                    onClick={(event) => props.deleteNote(event, note.id)}
+                    onClick={() => props.deleteNote(note.id)}
                 >
                     <i className="gg-trash trash-icon"></i>
                 </button>

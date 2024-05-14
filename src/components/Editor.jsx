@@ -19,7 +19,7 @@ export default function Editor({ currentNote, updateNote }) {
         <section className="pane editor">
             <ReactMde
                 // eslint-disable-next-line react/prop-types
-                value={currentNote.body}
+                value={currentNote?.body}
                 onChange={updateNote}
                 selectedTab={selectedTab}
                 onTabChange={setSelectedTab}

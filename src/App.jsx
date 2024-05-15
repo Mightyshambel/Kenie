@@ -3,7 +3,7 @@ import Sidebar from "./components/Sidebar"
 import Editor from "./components/Editor"
 import './styles/editor.css';
 import Split from "react-split"
-import { onSnapshot,addDoc,doc,deleteDoc } from "firebase/firestore";
+import { onSnapshot,addDoc,doc,deleteDoc, setDoc } from "firebase/firestore";
 import { notesCollection,db } from "./firebase";
 
 
@@ -12,7 +12,8 @@ export default function App() {
     const [notes, setNotes] = React.useState([])
 
     const [currentNoteId, setCurrentNoteId] = React.useState("")
-
+     
+    const sortedNote=notes.sort((a,b)=>b.updatedAt-a.updatedAt)
     const currentNote=notes.find(note => {
       return note.id === currentNoteId
     }) || notes[0]
@@ -36,27 +37,21 @@ export default function App() {
     
     async function createNewNote() {
         const newNote = {
-           
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
             body: "Type your note's title here"
         }
          const newNoteRef=await addDoc(notesCollection,newNote)
         setCurrentNoteId(newNoteRef.id)
     }
     
-    function updateNote(text) {
-        setNotes(oldNotes => {
-            const newArray = []
-            for(let i = 0; i < oldNotes.length; i++) {
-                const oldNote = oldNotes[i]
-                if(oldNote.id === currentNoteId) {
-                    // Put the most recently-modified note at the top
-                    newArray.unshift({ ...oldNote, body: text })
-                } else {
-                    newArray.push(oldNote)
-                }
-            }
-            return newArray
-        })
+    async function updateNote(text) {
+        const docRef = doc(db, "notes", currentNoteId)
+        await setDoc(
+            docRef,
+            {body :text,updatedAt:Date.now()},
+            {merge:true}
+            )
     }
     
     async function deleteNote(noteId) {
@@ -77,7 +72,7 @@ export default function App() {
                 className="split"
             >
                 <Sidebar
-                    notes={notes}
+                    notes={sortedNote}
                     currentNote={currentNote}
                     setCurrentNoteId={setCurrentNoteId}
                     newNote={createNewNote}

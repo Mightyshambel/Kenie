@@ -12,6 +12,7 @@ export default function App() {
     const [notes, setNotes] = React.useState([])
 
     const [currentNoteId, setCurrentNoteId] = React.useState("")
+    const [tempNoteText,setTempNoteText]=React.useState("")
      
     const sortedNote=notes.sort((a,b)=>b.updatedAt-a.updatedAt)
     const currentNote=notes.find(note => {
@@ -29,12 +30,29 @@ export default function App() {
         return unsubscribe
     }, [])
 
+   
+    
     React.useEffect(() => {
         if (!currentNoteId) {
             setCurrentNoteId(notes[0]?.id)
         }
     })
     
+    React.useEffect(() => {
+        if (currentNote) {
+            setTempNoteText(currentNote.body)
+        }
+    }, [currentNote]) 
+
+    React.useEffect(() => {
+       const timeoutId = setTimeout(() => {
+            if (tempNoteText !== currentNote.body) {
+                updateNote(tempNoteText)
+            }
+        }, 500)
+        return ()=>clearTimeout(timeoutId)
+    },[tempNoteText])
+
     async function createNewNote() {
         const newNote = {
             createdAt: Date.now(),
@@ -45,6 +63,7 @@ export default function App() {
         setCurrentNoteId(newNoteRef.id)
     }
     
+    // eslint-disable-next-line no-unused-vars
     async function updateNote(text) {
         const docRef = doc(db, "notes", currentNoteId)
         await setDoc(
@@ -79,8 +98,8 @@ export default function App() {
                     deleteNote={deleteNote}
                 />
                 <Editor 
-                    currentNote={currentNote} 
-                    updateNote={updateNote} 
+                    tempNoteText={tempNoteText} 
+                    setTempNoteText={setTempNoteText} 
                 />
             </Split>
             :

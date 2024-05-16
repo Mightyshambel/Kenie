@@ -5,7 +5,7 @@ import 'react-mde/lib/styles/css/react-mde-all.css';
 import '../styles/editor.css'; // Custom styles if needed
 
 // eslint-disable-next-line react/prop-types
-export default function Editor({ currentNote, updateNote }) {
+export default function Editor({tempNoteText,setTempNoteText}) {
     const [selectedTab, setSelectedTab] = React.useState("write")
 
     const converter = new Showdown.Converter({
@@ -19,8 +19,8 @@ export default function Editor({ currentNote, updateNote }) {
         <section className="pane editor">
             <ReactMde
                 // eslint-disable-next-line react/prop-types
-                value={currentNote?.body}
-                onChange={updateNote}
+                value={tempNoteText}
+                onChange={setTempNoteText}
                 selectedTab={selectedTab}
                 onTabChange={setSelectedTab}
                 generateMarkdownPreview={(markdown) =>

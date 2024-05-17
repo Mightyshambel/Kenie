@@ -105,7 +105,7 @@ export default function App() {
             :
             <div className="no-notes">
               <div className="notes">
-              <h1>Notes</h1>
+              <h1>ቀኔ</h1>
               <h2>You have no notes</h2>
                 <button 
                     className="first-note" 

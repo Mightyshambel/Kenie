@@ -1,4 +1,4 @@
-# 📋 Kenie - Advanced Todo Management App
+# 📋 Kenie - Todo App
 
 ## 🚀 Project Overview
 Kenie is a modern, feature-rich todo management application designed to help users organize tasks, boost productivity, and streamline personal task tracking.
